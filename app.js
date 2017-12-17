@@ -26,7 +26,7 @@ app.use('/', require('./modules/route'));
 app.use('/', require('./modules/controllers/PortfolioController'));
 app.use('/', require('./modules/controllers/AuthenticationController'));
 app.use('/', require('./modules/controllers/TicketController'));
-app.use('/', require('./modules/middleware/tokenValidator'));
+app.use('/', require('./modules/middleware/TokenValidator'));
 
 app.listen(1337, function(){
     console.log('Express server listening on port 1337');
