@@ -22,11 +22,11 @@ app.use(function(req, res, next) {
 app.get('/',function(req,res){
     res.send('hallo')
 });
-app.use('/', require('./modules/route'));
-app.use('/', require('./modules/controllers/PortfolioController'));
-app.use('/', require('./modules/controllers/AuthenticationController'));
-app.use('/', require('./modules/controllers/TicketController'));
-app.use('/', require('./modules/middleware/TokenValidator'));
+app.use('/', require('./src/route'));
+app.use('/', require('./src/controllers/PortfolioController'));
+app.use('/', require('./src/controllers/AuthenticationController'));
+app.use('/', require('./src/controllers/TicketController'));
+app.use('/', require('./src/middleware/TokenValidator'));
 
 app.listen(1337, function(){
     console.log('Express server listening on port 1337');
