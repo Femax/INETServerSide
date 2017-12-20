@@ -8,12 +8,16 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "jsonwebtoken": "^7.1.9",
-    "mongoose": "^4.12.3"
+    "log4js": "^2.4.1",
+    "mongoose": "^4.12.3",
+    "nodemon": "^1.13.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.13.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "vromnanov",
   "license": "ISC"

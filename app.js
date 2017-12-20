@@ -1,6 +1,6 @@
-var express         = require('express');
-var path            = require('path');
-var mongoose    = require('mongoose');
+var express = require('express');
+var path = require('path');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -26,7 +26,7 @@ app.use('/', require('./src/route'));
 app.use('/', require('./src/controllers/PortfolioController'));
 app.use('/', require('./src/controllers/AuthenticationController'));
 app.use('/', require('./src/controllers/TicketController'));
-app.use('/', require('./src/middleware/TokenValidator'));
+// app.use('/', require('./src/middleware/TokenValidator'));
 
 app.listen(1337, function(){
     console.log('Express server listening on port 1337');

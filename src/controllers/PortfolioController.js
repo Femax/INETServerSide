@@ -3,33 +3,42 @@ var Portfolio = require('./../models/Portfolio');
 var Ticket = require('./../models/Ticket');
 var router = express.Router();
 
-router.get('/portfolio/:id',function(req,res){
-    const portfolioId = req.params.id;
-
-    Portfolio.find({id : portfolioId},function (err, portfolios){
+router.get('/portfolio',function(req,res){
+    Portfolio.find({},function (err, portfolios){
       if (err) return console.error(err);
-      res.send(portfolios);
+      if (!portfolios) return console.error("portfolio are:"+ portfolios);
+      var portfolioMap = {};
+      portfolios.forEach(function(portfolio){
+        console.log(portfolio)
+          portfolioMap[portfolio._id] = portfolio;
+      })
+      res.send(portfolioMap);
+    }).populate('tickets').exec();;
+});
+
+router.get('/portfolio/:name',function(req,res){
+    const name = req.params.name;
+
+    Portfolio.get(name).then(function(portfolio,err){
+      if(err) console.log(err);
+      if(!portfolio) console.log(portfolio);
+      res.send(portfolio);
     });
 });
 
-router.get('/portfolioName/:name',function(req,res){
-    const portfolioName = req.params.name;
-
-    Portfolio.find({name : portfolioName},function (err, portfolios){
-      if (err) return console.error(err);
-      res.send(portfolios);
-    });
-});
-
-router.post('/portfolioCreate/:name&:type', function(req,res){
+router.post('/portfolio/:name&:type', function(req,res){
     const name = req.params.name;
     const type = req.params.type;
     console.log(name,+' '+type);
     var tickets = [];
+    var ticketName = ["Alfa","Apple","Tinkof"]
     for (var i = 0; i < 3; i++) {
         tickets.push(new Ticket({
+            name:ticketName[i],
             type: type,
-            count: i
+            count: i,
+            value: getRandomArbitary(0,300),
+            percent: i
         }));
     }
 
@@ -51,8 +60,13 @@ router.post('/portfolioCreate/:name&:type', function(req,res){
     var portfolio = new Portfolio(fields);
     portfolio.save(function(err, portfolio){
       if (err) return console.error(err);
-      res.status(200).send();
+      res.status(200).send({successful: "successful"});
     });
 });
+
+function getRandomArbitary(min, max)
+{
+  return Math.random() * (max - min) + min;
+}
 
 module.exports = router;
